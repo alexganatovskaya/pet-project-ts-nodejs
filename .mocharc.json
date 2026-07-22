@@ -1,0 +1,21 @@
+{
+  "require": [
+    "tsx"
+  ],
+  "extension": [
+    "ts"
+  ],
+  "spec": [
+    "tests/**/*.spec.ts"
+  ],
+  "timeout": 10000,
+  "reporter": "mochawesome",
+  "reporter-option": [
+    "reportDir=reports/mochawesome",
+    "reportFilename=api-test-report",
+    "quiet=true",
+    "overwrite=false",
+    "html=true",
+    "json=true"
+  ]
+}
