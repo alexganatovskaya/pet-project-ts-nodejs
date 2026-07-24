@@ -45,4 +45,19 @@ describe('API Weather: Negative scenarios', () => {
         
 
     });
+
+
+    it('Should return 400 error for invalid longitude (-180 < longitude < 180)', async () => {
+            try{
+                await weatherAPI.getWeather({ 
+                latitude: 51.10,  
+                longitude: 200 
+            });
+            expect.fail('The request should have failed with an error, but it succeeded!');
+            } catch (error: any) {
+                expect(error.response.status).to.equal(400);
+                expect(error.response.data.error).to.equal(true);
+                expect(error.response.data).to.have.property('reason');
+            }
+        });
 });
