@@ -6,12 +6,18 @@ import { CitySchema } from '../src/schemas/geocoding.schema';
 describe ('E2E: Weather by City Name', () => {
     const forecastApi = new ForecastApi();
     const geocodingApi = new GeocodingApi();
+    let cityForTest: string;
+
+    before(() => {
+        cityForTest = 'Wroclaw';
+        console.log('⏳ Data preparation...');
+    });
 
     it ('Should successfully get weather for Wroclaw', async () => {
         
         // 2. Act 1: Call Geocoding API to search for 'Wroclaw'
         // Save the result to a variable (e.g., geoResponse)
-        const geoResponse = await geocodingApi.geoCoordinates({ name: 'Wroclaw' });
+        const geoResponse = await geocodingApi.geoCoordinates({ name: cityForTest });
 
         // 2. Validate the API contract using Zod schema
         CitySchema.parse(geoResponse.data.results[0]);
@@ -28,4 +34,9 @@ describe ('E2E: Weather by City Name', () => {
         expect(weatherResponse.data).to.have.property('current_weather');
 
     });
+
+    after(() => {
+        console.log('🧹 Data cleanup');
+    });
+
 });
