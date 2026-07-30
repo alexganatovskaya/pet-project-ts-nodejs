@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { ForecastApi } from '../src/api/endpoints/forecast.api';
 import { GeocodingApi } from '../src/api/endpoints/geocoding.api';
 import { DatabaseClient } from '../src/database/dbClient';
+import { TEST_DATA } from '../src/config/testData';
 
 describe('db Testing', () => {
     const forecastApi = new ForecastApi();
@@ -9,7 +10,7 @@ describe('db Testing', () => {
     const dbClient = new DatabaseClient();
 
     // 1. Create the city variable so TS can see it
-    const cityForTest = 'Wroclaw';
+    const cityForTest = TEST_DATA.City;
 
     before(async () => {
          await dbClient.connect();

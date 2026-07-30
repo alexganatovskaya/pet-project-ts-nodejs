@@ -2,6 +2,7 @@ import { expect } from 'chai';
 import { ForecastApi } from '../src/api/endpoints/forecast.api';
 import { GeocodingApi } from '../src/api/endpoints/geocoding.api';
 import { CitySchema } from '../src/schemas/geocoding.schema';
+import { TEST_DATA } from '../src/config/testData';
 
 describe ('E2E: Weather by City Name', () => {
     const forecastApi = new ForecastApi();
@@ -9,7 +10,7 @@ describe ('E2E: Weather by City Name', () => {
     let cityForTest: string;
 
     before(() => {
-        cityForTest = 'Wroclaw';
+        cityForTest = TEST_DATA.City;
         console.log('⏳ Data preparation...');
     });
 
