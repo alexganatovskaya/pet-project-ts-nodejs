@@ -8,7 +8,7 @@ describe('db Testing', () => {
     const geocodingApi = new GeocodingApi();
     const dbClient = new DatabaseClient();
 
-    // 1. Создаем переменную с городом, чтобы TS её видел!
+    // 1. Create the city variable so TS can see it
     const cityForTest = 'Wroclaw';
 
     before(async () => {
@@ -16,24 +16,24 @@ describe('db Testing', () => {
     });
 
     it('Should fetch weather for Wroclaw and save it to MongoDB', async () => {
-        // Узнаем координаты города
+        // Get the city coordinates
         const geoResponse = await geocodingApi.geoCoordinates({ name: cityForTest });
         const latitude = geoResponse.data.results[0].latitude;
         const longitude = geoResponse.data.results[0].longitude;
         
         const weatherResponse = await forecastApi.getWeather({latitude, longitude});
         
-        // Берем нужную "таблицу" (коллекцию)
+        // Get the required "table" (collection)
         const collection = dbClient.getCollection('weather_history');
 
-        // Создаем объект, который хотим сохранить
+        // Create the object we want to save
         const documentToSave = {
             city: cityForTest,
             temperature: weatherResponse.data.current_weather.temperature,
-            date: new Date() // Текущее время
+            date: new Date() // Current time
         };
 
-        // 3. Отправляем в базу!
+        // 3. Send it to the database!
         await collection.insertOne(documentToSave);
         console.log('Data is saved successfully into MongoDB!');
     });
