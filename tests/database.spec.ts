@@ -34,9 +34,18 @@ describe('db Testing', () => {
             date: new Date() // Current time
         };
 
-        // 3. Send it to the database!
+        await collection.deleteMany({city: cityForTest}); // Clean up any previous entries for this city
+        
+
+        // Send it to the database!
         await collection.insertOne(documentToSave);
         console.log('Data is saved successfully into MongoDB!');
+
+        const savedDocument = await collection.findOne({city: cityForTest});
+        expect(savedDocument).to.not.equal(null);
+        expect(savedDocument?.city).to.equal(cityForTest);
+        expect(savedDocument?.temperature).to.equal(weatherResponse.data.current_weather.temperature);
+        
     });
 
     after (async () => {
