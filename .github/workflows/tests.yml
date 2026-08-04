@@ -1,0 +1,32 @@
+name: API Tests Automation
+
+# 1. WHEN to run tests?
+on:
+  push:
+    branches: [ "main", "master" ] # Run on push to the main branch
+
+# 2. WHAT to do?
+jobs:
+  test:
+    # Allocate a virtual machine on the latest Ubuntu
+    runs-on: ubuntu-latest
+
+    # 3. STEP-BY-STEP INSTRUCTION (Steps)
+    steps:
+    - name: 📥 Checkout repository code
+      uses: actions/checkout@v4
+
+    - name: 🟢 Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Use a modern Node version
+
+    - name: 📦 Install dependencies
+      run: npm install
+
+    - name: 🚀 Run automated tests
+      # Get our connection string from GitHub Secrets and pass it to the tests
+      env:
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+      # The same command ran manually in the terminal
+      run: npx mocha --require tsx "tests/**/*.spec.ts"
