@@ -9,7 +9,8 @@ export interface GeocodingResponse {
 	// [] is added at the very end to define an array of objects
 	results: { 
 	latitude: number; 
-	longitude: number 
+	longitude: number;
+	name: string 
 	}[];
 }
 

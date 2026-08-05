@@ -10,7 +10,7 @@ describe('db Testing', () => {
     const dbClient = new DatabaseClient();
 
     // 1. Create the city variable so TS can see it
-    const cityForTest = TEST_DATA.City;
+    const cityForTest = TEST_DATA.defaultCity;
 
     before(async () => {
          await dbClient.connect();

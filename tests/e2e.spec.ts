@@ -10,7 +10,7 @@ describe ('E2E: Weather by City Name', () => {
     let cityForTest: string;
 
     before(() => {
-        cityForTest = TEST_DATA.City;
+        cityForTest = TEST_DATA.defaultCity;
         console.log('⏳ Data preparation...');
     });
 

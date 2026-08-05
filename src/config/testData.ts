@@ -1,3 +1,4 @@
 export const TEST_DATA = {
-    City: 'Wroclaw'
+    defaultCity: 'Wroclaw',
+    citiesToTest: ['Wroclaw', 'Berlin', 'London', 'Paris', 'Tokyo']
 }
