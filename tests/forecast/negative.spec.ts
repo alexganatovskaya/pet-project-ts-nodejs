@@ -2,6 +2,8 @@
 import { expect } from 'chai';
 // Import the 'ForecastApi' class from our custom endpoint file to make API calls
 import { ForecastApi } from '../../src/api/endpoints/forecast.api';
+import { GeocodingApi } from '../../src/api/endpoints/geocoding.api';
+import { generateRandomString } from '../../src/utils/helpers';
 
 // 'describe' creates a test suite (a logical group of tests) named 'Weather API: Negative scenarios'
 describe('API Weather: Negative scenarios', () => {
@@ -42,8 +44,6 @@ describe('API Weather: Negative scenarios', () => {
 
         }
         
-        
-
     });
 
 
@@ -60,4 +60,20 @@ describe('API Weather: Negative scenarios', () => {
                 expect(error.response.data).to.have.property('reason');
             }
         });
+});
+
+describe('Geocoding API Negative scenarios', () => {
+    const geocodingAPI = new GeocodingApi();
+	
+	it('should return 200 and no results for a non-existing city', async () => {
+        
+        const randomCityName = generateRandomString(50);
+
+        const response = await geocodingAPI.geoCoordinates({ name: randomCityName });
+
+        expect(response.status).to.equal(200);
+
+        const results = response.data.results;
+        expect(results === undefined || results.length === 0).to.be.true;
+    });
 });
